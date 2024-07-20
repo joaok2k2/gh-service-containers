@@ -14,15 +14,15 @@ jobs:
     services:
       app:
         image: joaosilvadev/api-service-container
-        ports:
-          - 3000:3000
+        # ports:
+        #   - 3000:3000
         env:
           MONGO_HOSTNAME: mongo
 
       mongo:
         image: mongo:latest
-        ports:
-          - 27017:27017
+        # ports:
+        #   - 27017:27017
    
     steps:
 
