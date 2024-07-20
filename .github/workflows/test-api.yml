@@ -36,10 +36,10 @@ jobs:
 
       - name: Post a user
         run: |
-          curl -X POST http://api:3000/api/users  \
+          curl -X POST http://app:3000/api/users  \
           -H 'Content-Type: application/json' \
           -d '{"username": "olamarilene", "address": "tainha and vinho party"}'
 
       - name: Get Users
         run: |
-          curl http://api:3000/api/users
+          curl http://app:3000/api/users
