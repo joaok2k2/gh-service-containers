@@ -9,6 +9,8 @@ on:
 jobs:
   test-api:
     runs-on: ubuntu-latest
+    container:
+      image: ubuntu:20.04
     services:
       app:
         image: joaosilvadev/api-service-container
@@ -21,16 +23,23 @@ jobs:
         image: mongo:latest
         ports:
           - 27017:27017
+   
     steps:
+
+      - name: Install curl
+        run: |
+          apt-get update -y
+          apt-get install curl -y
+
       - name: Dump Service Context
         run: echo "${{ toJson(job.services) }}"
 
       - name: Post a user
         run: |
-          curl -X POST http://localhost:3000/api/users  \
+          curl -X POST http://api:3000/api/users  \
           -H 'Content-Type: application/json' \
           -d '{"username": "olamarilene", "address": "tainha and vinho party"}'
 
       - name: Get Users
         run: |
-          curl http://localhost:3000/api/users
+          curl http://api:3000/api/users
