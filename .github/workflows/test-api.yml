@@ -1,0 +1,34 @@
+name: Test Api
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  test-api:
+    runs-on: ubuntu-latest
+    services:
+      app:
+        image: joaosilvadev/api-service-container
+        ports:
+          - 3000:3000
+        env:
+          MONGO_HOSTNAME: mongo
+
+      mongo:
+        image: mongo:latest
+        ports:
+          - 27017:27017
+    steps:
+      - name: Dump Serivces Context
+        run: echo "${{ toJson(job.services) }}"
+
+      - name: Post a user
+        run: |
+          curl -X POST http://localhost:3000/api/users  \
+          -H 'Content-Type: application/json' \
+          -d '{"username": "olamarilene", "address": "tainha and vinho party"}'
+
+      - name: Get Users
+        run: |
+          curl http://localhost:3000/api/users
