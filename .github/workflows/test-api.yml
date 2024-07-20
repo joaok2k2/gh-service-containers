@@ -2,6 +2,8 @@ name: Test Api
 
 on:
   push:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
